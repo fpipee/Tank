@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbTankModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TableTank">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tankCapacity" Type="int" Nullable="false" />
+          <Property Name="tankCapacityMax" Type="int" Nullable="false" />
+          <Property Name="tankCapacityMin" Type="int" Nullable="false" />
+          <Property Name="liquidCapacity" Type="int" Nullable="false" />
+          <Property Name="liquidCapacityMin" Type="int" Nullable="false" />
+          <Property Name="liquidCapacityMax" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="SpEditSettings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partankCapacity" Type="int" Mode="In" />
+          <Parameter Name="partankCapacityMax" Type="int" Mode="In" />
+          <Parameter Name="partankCapacityMin" Type="int" Mode="In" />
+          <Parameter Name="parliquidCapacity" Type="int" Mode="In" />
+          <Parameter Name="parliquidCapacityMin" Type="int" Mode="In" />
+          <Parameter Name="parliquidCapacityMax" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SpSelectSettings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="dbTankModelStoreContainer">
+          <EntitySet Name="TableTank" EntityType="Self.TableTank" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbTankModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TableTank">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tankCapacity" Type="Int32" Nullable="false" />
+          <Property Name="tankCapacityMax" Type="Int32" Nullable="false" />
+          <Property Name="tankCapacityMin" Type="Int32" Nullable="false" />
+          <Property Name="liquidCapacity" Type="Int32" Nullable="false" />
+          <Property Name="liquidCapacityMin" Type="Int32" Nullable="false" />
+          <Property Name="liquidCapacityMax" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="dbTankEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TableTank" EntityType="Self.TableTank" />
+          <FunctionImport Name="SpEditSettings">
+            <Parameter Name="partankCapacity" Mode="In" Type="Int32" />
+            <Parameter Name="partankCapacityMax" Mode="In" Type="Int32" />
+            <Parameter Name="partankCapacityMin" Mode="In" Type="Int32" />
+            <Parameter Name="parliquidCapacity" Mode="In" Type="Int32" />
+            <Parameter Name="parliquidCapacityMin" Mode="In" Type="Int32" />
+            <Parameter Name="parliquidCapacityMax" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpSelectSettings" ReturnType="Collection(dbTankModel.SpSelectSettings_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SpSelectSettings_Result">
+          <Property Type="Int32" Name="tankCapacity" Nullable="false" />
+          <Property Type="Int32" Name="tankCapacityMax" Nullable="false" />
+          <Property Type="Int32" Name="tankCapacityMin" Nullable="false" />
+          <Property Type="Int32" Name="liquidCapacity" Nullable="false" />
+          <Property Type="Int32" Name="liquidCapacityMin" Nullable="false" />
+          <Property Type="Int32" Name="liquidCapacityMax" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbTankModelStoreContainer" CdmEntityContainer="dbTankEntities">
+          <EntitySetMapping Name="TableTank">
+            <EntityTypeMapping TypeName="dbTankModel.TableTank">
+              <MappingFragment StoreEntitySet="TableTank">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tankCapacity" ColumnName="tankCapacity" />
+                <ScalarProperty Name="tankCapacityMax" ColumnName="tankCapacityMax" />
+                <ScalarProperty Name="tankCapacityMin" ColumnName="tankCapacityMin" />
+                <ScalarProperty Name="liquidCapacity" ColumnName="liquidCapacity" />
+                <ScalarProperty Name="liquidCapacityMin" ColumnName="liquidCapacityMin" />
+                <ScalarProperty Name="liquidCapacityMax" ColumnName="liquidCapacityMax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SpEditSettings" FunctionName="dbTankModel.Store.SpEditSettings" />
+          <FunctionImportMapping FunctionImportName="SpSelectSettings" FunctionName="dbTankModel.Store.SpSelectSettings">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbTankModel.SpSelectSettings_Result">
+                <ScalarProperty Name="tankCapacity" ColumnName="tankCapacity" />
+                <ScalarProperty Name="tankCapacityMax" ColumnName="tankCapacityMax" />
+                <ScalarProperty Name="tankCapacityMin" ColumnName="tankCapacityMin" />
+                <ScalarProperty Name="liquidCapacity" ColumnName="liquidCapacity" />
+                <ScalarProperty Name="liquidCapacityMin" ColumnName="liquidCapacityMin" />
+                <ScalarProperty Name="liquidCapacityMax" ColumnName="liquidCapacityMax" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

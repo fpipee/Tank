@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbTankModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TableTank">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tankCapacity" Type="Int32" Nullable="false" />
+    <Property Name="tankCapacityMax" Type="Int32" Nullable="false" />
+    <Property Name="tankCapacityMin" Type="Int32" Nullable="false" />
+    <Property Name="liquidCapacity" Type="Int32" Nullable="false" />
+    <Property Name="liquidCapacityMin" Type="Int32" Nullable="false" />
+    <Property Name="liquidCapacityMax" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="dbTankEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TableTank" EntityType="Self.TableTank" />
+    <FunctionImport Name="SpEditSettings">
+      <Parameter Name="partankCapacity" Mode="In" Type="Int32" />
+      <Parameter Name="partankCapacityMax" Mode="In" Type="Int32" />
+      <Parameter Name="partankCapacityMin" Mode="In" Type="Int32" />
+      <Parameter Name="parliquidCapacity" Mode="In" Type="Int32" />
+      <Parameter Name="parliquidCapacityMin" Mode="In" Type="Int32" />
+      <Parameter Name="parliquidCapacityMax" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SpSelectSettings" ReturnType="Collection(dbTankModel.SpSelectSettings_Result)" />
+  </EntityContainer>
+  <ComplexType Name="SpSelectSettings_Result">
+    <Property Type="Int32" Name="tankCapacity" Nullable="false" />
+    <Property Type="Int32" Name="tankCapacityMax" Nullable="false" />
+    <Property Type="Int32" Name="tankCapacityMin" Nullable="false" />
+    <Property Type="Int32" Name="liquidCapacity" Nullable="false" />
+    <Property Type="Int32" Name="liquidCapacityMin" Nullable="false" />
+    <Property Type="Int32" Name="liquidCapacityMax" Nullable="false" />
+  </ComplexType>
+</Schema>

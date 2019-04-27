@@ -1,0 +1,297 @@
+﻿@model TestTank_.Models.obtabletank
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Tank Utilities</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link href="~/Content/cods/bootstrap-4.1.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/cods/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
+    <link href="~/Content/cods/css/cssion.css" rel="stylesheet" />
+    <link href="~/Content/cods/css/fixion-4.css" rel="stylesheet" />
+    <script src="~/Content/cods/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/cods/js/jquerion.js"></script>
+    <script>
+
+        
+        $(document).ready(function () {
+
+            var valor = $('#idCapacity').val();
+            var capaMax = $('#idtankCapacityMax').val();
+            var capaMin = $('#idtankCapacityMin').val();
+
+                var capReal = capaMax - capaMin;
+                var nivel = (valor / capReal) * 100;
+                var porcentaje = '' + nivel + '%';
+                Ion.cambiarLiquido(porcentaje);
+                Color();
+        });
+
+        function updateData() {
+            var tankCapacityMax = parseInt( $("#idtankCapacityMax").val());
+            var tankCapacityMin = parseInt($("#idtankCapacityMin").val());
+            var tankCapacityMaxAlert = parseInt($("#idliquidCapacityMax").val());
+            var tankCapacityMinAlert = parseInt($("#idliquidCapacityMin").val());
+
+          var condition = tankCapacityMax >= tankCapacityMaxAlert;
+          condition = condition && (tankCapacityMin <= tankCapacityMinAlert);
+
+          if (condition) {
+
+
+              $.ajax({
+                  type: "POST",
+                  url: "../Test/EditDataSetting",
+                  data: {
+                      valMin: tankCapacityMin, valMax: tankCapacityMax,
+                      valAlertMax: tankCapacityMaxAlert, valAlertMin: tankCapacityMinAlert
+                  },
+              });
+              location.reload();
+          } else {
+              alert("The values typed are invalid, please check the info");
+          }
+        }
+
+        function enablebut() {
+            $("#idtankCapacityMax").prop("readonly", false);
+            $("#idtankCapacityMin").prop("readonly", false);
+            $("#idliquidCapacityMax").prop("readonly", false);
+            $("#idliquidCapacityMin").prop("readonly", false);
+        }
+
+        function disablebut() {
+            $("#idtankCapacityMax").prop("readonly", true);
+            $("#idtankCapacityMin").prop("readonly", true);
+            $("#idliquidCapacityMax").prop("readonly", true);
+            $("#idliquidCapacityMin").prop("readonly", true);
+        }
+
+
+        function vaciar() {
+            Ion.cambiarLiquido('0%');
+
+            $.ajax({
+                type: "POST",
+                url: "../Test/EditLiquid",
+                data: { id: 0 },
+            });
+            $('#idCapacity').val(0);
+            Color();
+        }
+
+
+        function putLiquid() {
+            var valor = parseInt( $('#idSetliquidCapacity').val());
+            var capaMax = parseInt( $('#idtankCapacityMax').val());
+            var capaMin = parseInt( $('#idtankCapacityMin').val());
+
+            var cumple = (valor >= capaMin) && (valor <= capaMax);
+            if (cumple) {
+                var capReal = capaMax - capaMin;
+                var nivel = (valor / capReal) * 100;
+                var porcentaje = '' + nivel + '%';
+                Ion.cambiarLiquido(porcentaje);
+
+                $.ajax({
+                    type: "POST",
+                    url: "../Test/EditLiquid",
+                    data: {id: valor},
+                  });
+                $('#idCapacity').val(valor);
+                
+            } else {
+                alert('the value type is invalid');
+            }
+            Color();
+        }
+        function minus() {
+            var valor = parseInt($('#idCapacity').val());
+            valor = valor - 1;
+            var capaMax = parseInt($('#idtankCapacityMax').val());
+            var capaMin = parseInt($('#idtankCapacityMin').val());
+
+            var cumple = (valor >= capaMin) && (valor <= capaMax);
+            if (cumple) {
+                var capReal = capaMax - capaMin;
+                var nivel = (valor / capReal) * 100;
+                var porcentaje = '' + nivel + '%';
+                Ion.cambiarLiquido(porcentaje);
+
+                $.ajax({
+                    type: "POST",
+                    url: "../Test/EditLiquid",
+                    data: { id: valor },
+                });
+                $('#idCapacity').val(valor);
+                Color();
+
+
+            } else {
+                alert('the value type is invalid');
+            }
+        }
+            function Color(){
+                var valor = parseInt($('#idCapacity').val());
+                var capaMax = parseInt($('#idliquidCapacityMax').val());
+                var capaMin = parseInt($('#idliquidCapacityMin').val());
+
+                if(valor >= capaMax){
+                    
+                    $("#liquid").css("background-color","yellow");
+                }else if(valor <=capaMin ){
+                    $("#liquid").css("background-color","red");
+
+                }else{
+                    $("#liquid").css("background-color","blue");
+                
+                }
+
+            }
+
+        function plus() {
+            var valor = parseInt($('#idCapacity').val());
+            valor = valor +1;
+            var capaMax = parseInt($('#idtankCapacityMax').val());
+            var capaMin = parseInt($('#idtankCapacityMin').val());
+
+            var cumple = (valor >= capaMin) && (valor <= capaMax);
+            if (cumple) {
+                var capReal = capaMax - capaMin;
+                var nivel = (valor / capReal) * 100;
+                var porcentaje = '' + nivel + '%';
+                Ion.cambiarLiquido(porcentaje);
+
+                $.ajax({
+                    type: "POST",
+                    url: "../Test/EditLiquid",
+                    data: { id: valor },
+                });
+                $('#idCapacity').val(valor);
+                Color();
+
+            } else {
+                alert('the value type is invalid');
+            }
+            
+        }
+
+</script>
+</head>
+
+<body>
+
+
+    <div class="ionix pAA80">
+        <div class="general">
+
+            <div class="bBS1 mb30" style="font-size:50px; line-height:50px">Tank Utilities</div>
+
+            <div class="row">
+
+                <div class="col-5">
+
+                    <div class="p10" style="background:#999; color:#fff">Water tank</div>
+                    <div class="bS1 p30 mb20">
+
+                        <div id="tank" class="posR h400 w90" style="background:#eee; font-size:10px; white-space: nowrap;">
+
+                            <div id="liquid" class="posA w100" style="bottom:0; height:50%; background:blue;"></div>
+
+                            <div class="posA w10x bBS3" style="right:-15px; bottom:100%;">Max (10 lts)</div>
+                            <div class="posA w10x bBS3" style="right:-15px; bottom:0%;">Min (0 lts)</div>
+
+                            <div class="posA w10x bBS1" style="right:-15px; bottom:80%;">Hight lvl</div>
+                            <div class="posA w10x bBS1" style="right:-15px; bottom:20%;">Low lvl</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="taR">
+
+                        <div class="btn btn-secondary" onclick="vaciar()">Drain</div>
+                    </div>
+
+                </div>
+
+                <div class="col-2">
+                    <div class="form-group mb30">
+                        <label>Lvl (Lts)</label>
+                        <input type="text" id ="idCapacity"class="form-control dB mb10" readonly value=@Html.Encode(Model.liquidCapacity)>
+                        <div class="btn btn-secondary btn-sm" onclick="minus()">-</div>
+                        <div class="btn btn-secondary btn-sm" onclick="plus()">+</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Set point (Lts)</label>
+                        <input type="number" id="idSetliquidCapacity" class="form-control dB mb10" >
+
+                     
+                               
+                        <div class=" btn btn-secondary btn-sm" onclick="putLiquid()">Set</div>
+                    </div>
+                </div>
+
+                <div class="col-5" id="dSetup">
+
+                    <div class="p10" style="background:#999; color:#fff">Setup</div>
+                    <div class="bS1 p30 mb20">
+
+                        <div class="p10 bBS1 mb20">Capacity</div>
+
+                        <div class="row align-items-center mb5">
+                            <label class="col-3 taR">Maximun</label>
+                            <div class="col-7">
+                                <input type="number" id="idtankCapacityMax" class="form-control" value=@Html.Encode(Model.tankCapacityMax)>
+                            </div>
+                            <div class="col-2">Lts</div>
+                        </div>
+                        <div class="row align-items-center mb20">
+                            <label class="col-3 taR">Minimun</label>
+                            <div class="col-7">
+                                <input type="number" id="idtankCapacityMin" class="form-control" value=@Html.Encode(Model.tankCapacityMin)>
+                            </div>
+                            <div class="col-2">Lts</div>
+                        </div>
+
+
+                        <div class="p10 bBS1 mb20">Alarms</div>
+
+                        <div class="row align-items-center mb5">
+                            <label class="col-3 taR">Hight level</label>
+                            <div class="col-7">
+                                <input type="number" id="idliquidCapacityMax" class="form-control" value=@Html.Encode(Model.liquidCapacityMax)>
+                            </div>
+                            <div class="col-2">Lts</div>
+                        </div>
+                        <div class="row align-items-center">
+                            <label class="col-3 taR">Low level</label>
+                            <div class="col-7">
+                                <input type="number" id="idliquidCapacityMin" class="form-control" value=@Html.Encode(Model.liquidCapacityMin)>
+                            </div>
+                            <div class="col-2">Lts</div>
+                        </div>
+
+                    </div>
+
+                    <div class="taR">
+                        <div class="btn btn-secondary" onclick="enablebut()">Edit</div>
+                        <div class="btn btn-secondary" onclick="disablebut()">Cancel</div>
+                        <div class="btn btn-secondary" onclick="updateData()">Confirm</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</body>
+</html>

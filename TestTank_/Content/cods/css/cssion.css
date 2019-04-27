@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+/* GENERAL */
+*									{ margin:0; border:0; padding:0; outline:none; text-decoration:none; word-break:break-strict; }
+img									{ max-width:100%; }
+body								{ font-family: 'Open Sans', sans-serif; font-weight:400; font-size:14px; line-height:1em; position:relative; }
+a:hover, a:focus					{ text-decoration:none; outline:none; }
+a									{ outline:none !important; }
+
+
+/* ESTRUCTURA */
+.ionix								{ width:100%; max-width:1920px; min-width:320px; height:auto; position:relative; margin:0 auto; }
+.general							{ width:90%; max-width:1440px; min-width:320px; height:auto; position:relative; margin:0 auto; }
+
+
+/* ZONAS */
+
+

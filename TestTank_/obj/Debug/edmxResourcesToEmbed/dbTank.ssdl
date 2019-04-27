@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbTankModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TableTank">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tankCapacity" Type="int" Nullable="false" />
+    <Property Name="tankCapacityMax" Type="int" Nullable="false" />
+    <Property Name="tankCapacityMin" Type="int" Nullable="false" />
+    <Property Name="liquidCapacity" Type="int" Nullable="false" />
+    <Property Name="liquidCapacityMin" Type="int" Nullable="false" />
+    <Property Name="liquidCapacityMax" Type="int" Nullable="false" />
+  </EntityType>
+  <Function Name="SpEditSettings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partankCapacity" Type="int" Mode="In" />
+    <Parameter Name="partankCapacityMax" Type="int" Mode="In" />
+    <Parameter Name="partankCapacityMin" Type="int" Mode="In" />
+    <Parameter Name="parliquidCapacity" Type="int" Mode="In" />
+    <Parameter Name="parliquidCapacityMin" Type="int" Mode="In" />
+    <Parameter Name="parliquidCapacityMax" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SpSelectSettings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="dbTankModelStoreContainer">
+    <EntitySet Name="TableTank" EntityType="Self.TableTank" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbTankModelStoreContainer" CdmEntityContainer="dbTankEntities">
+    <EntitySetMapping Name="TableTank">
+      <EntityTypeMapping TypeName="dbTankModel.TableTank">
+        <MappingFragment StoreEntitySet="TableTank">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tankCapacity" ColumnName="tankCapacity" />
+          <ScalarProperty Name="tankCapacityMax" ColumnName="tankCapacityMax" />
+          <ScalarProperty Name="tankCapacityMin" ColumnName="tankCapacityMin" />
+          <ScalarProperty Name="liquidCapacity" ColumnName="liquidCapacity" />
+          <ScalarProperty Name="liquidCapacityMin" ColumnName="liquidCapacityMin" />
+          <ScalarProperty Name="liquidCapacityMax" ColumnName="liquidCapacityMax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SpEditSettings" FunctionName="dbTankModel.Store.SpEditSettings" />
+    <FunctionImportMapping FunctionImportName="SpSelectSettings" FunctionName="dbTankModel.Store.SpSelectSettings">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbTankModel.SpSelectSettings_Result">
+          <ScalarProperty Name="tankCapacity" ColumnName="tankCapacity" />
+          <ScalarProperty Name="tankCapacityMax" ColumnName="tankCapacityMax" />
+          <ScalarProperty Name="tankCapacityMin" ColumnName="tankCapacityMin" />
+          <ScalarProperty Name="liquidCapacity" ColumnName="liquidCapacity" />
+          <ScalarProperty Name="liquidCapacityMin" ColumnName="liquidCapacityMin" />
+          <ScalarProperty Name="liquidCapacityMax" ColumnName="liquidCapacityMax" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
